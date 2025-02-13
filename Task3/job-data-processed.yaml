@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processed-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: job
+        image: busybox
+        command: ["sh", "-c", "echo 'Data processed'"]
+      restartPolicy: Never
+  backoffLimit: 2
