@@ -1,0 +1,36 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ssd-storage
+provisioner: k8s.io/minikube-hostpath
+parameters:
+  storagePolicy: ssd
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-ssd
+spec:
+  storageClassName: ssd-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-ssd
+spec:
+  containers:
+  - name: app-container
+    image: busybox
+    command: ['sh', '-c', 'echo "Hello from SSD storage" > /data/message.txt; sleep 3600']
+    volumeMounts:
+    - name: storage
+      mountPath: /data
+  volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: pvc-ssd

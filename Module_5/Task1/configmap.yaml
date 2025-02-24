@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  APP_NAME: env-configmap
+  APP_PORT: "80"
