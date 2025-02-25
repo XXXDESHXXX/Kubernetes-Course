@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db-pod
+  namespace: default
+  labels:
+    role: database
+spec:
+  containers:
+  - name: db-container
+    image: postgres:15.12
+    env:
+      - name: POSTGRES_PASSWORD
+        value: "112233"
+

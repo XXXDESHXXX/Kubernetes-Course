@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-pod
+  namespace: default
+  labels:
+    role: app
+spec:
+  containers:
+  - name: app-container
+    image: busybox
+    command: ["sleep", "3600"]
