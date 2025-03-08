@@ -29,16 +29,24 @@ jobs:
       - name: Set Minikube context
         run: kubectl config use-context minikube
 
-
-      - name: Debug Helm Releases
-        run: |
-          helm list --all-namespaces
-      - name: Debug Kubernetes Context
+      - name: Debug Kubernetes
         run: |
           kubectl config current-context
           kubectl cluster-info
           kubectl get nodes
+
+      - name: Cleanup previous Helm releases
+        run: |
+          helm uninstall mychart-release --namespace default || true
+
+      - name: Wait for Kubernetes readiness
+        run: sleep 10
+
       - name: Deploy or Upgrade Helm Chart
         run: |
           cd Module_7/Task6
-          helm upgrade --install mychart-release ./mychart --values mychart/values.yaml --namespace default --debug --dry-run
+          helm upgrade --install mychart-release ./mychart \
+            --values mychart/values.yaml --namespace default --atomic --debug
+
+      - name: Debug Helm Releases
+        run: helm list --all-namespaces
