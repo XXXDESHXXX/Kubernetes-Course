@@ -45,5 +45,5 @@ jobs:
       - name: Deploy or Upgrade Helm Chart
         run: |
           cd Module_7/Task6
-          helm upgrade --install mychart-release ./mychart --values mychart/values.yaml --namespace default --atomic --debug --wait --timeout 120s
+          helm upgrade --install mychart-release ./mychart --values mychart/values.yaml --namespace default --debug --wait --timeout 120s
 
