@@ -3,7 +3,7 @@ name: Deploy Helm Chart
 on:
   push:
     paths:
-      - 'Module_7/Task6/mychart/values.yaml'
+      - 'mychart/values.yaml'  # Следим за изменениями в файле values.yaml
     branches:
       - main
 
@@ -22,9 +22,13 @@ jobs:
 
       - name: Configure Kubernetes
         run: |
-          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
+          # Создаем конфиг Kubernetes из секрета
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+          kubectl cluster-info  # Проверяем подключение к кластеру
 
       - name: Deploy Application with Helm
         run: |
+          # Указываем правильный путь к Helm-чарту
           helm upgrade --install mychart-release ./mychart -f ./mychart/values.yaml --namespace default
