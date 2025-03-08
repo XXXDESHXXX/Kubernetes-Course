@@ -1,0 +1,6 @@
+mariadb:
+  auth:
+    rootPassword: "testpassw"
+    password: "testpassw"
+
+wordpressPassword: "testpassw"

@@ -1,0 +1,14 @@
+{{- /* Шаблон для создания нескольких Pod с уникальными ярлыками */ -}}
+{{- range $index, $instance := .Values.instances }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "mychart.fullname" $ }}-{{ $instance | lower }}
+  labels:
+    app: {{ include "mychart.name" $ }}
+    instance: {{ $instance | lower }}
+spec:
+  containers:
+    - name: {{ include "mychart.name" $ }}
+      image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+{{- end }}

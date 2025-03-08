@@ -1,0 +1,30 @@
+name: Deploy Helm Chart
+
+on:
+  push:
+    paths:
+      - 'Module_7/Task6/mychart/values.yaml'
+      - 'Module_7/Task6/mychart/templates/**'
+      - 'Module_7/Task6/mychart/Chart.yaml'
+      - '.github/workflows/**'
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Kubernetes (kubectl)
+        uses: marcofranssen/setup-kubectl@v0.3.0
+        id: kubectl
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: 'latest'
+      - name: Deploy or Upgrade Helm Chart
+        run: |
+          cd Module_7/Task6
+          helm upgrade --install mychart-release ./mychart --values mychart/values.yaml
