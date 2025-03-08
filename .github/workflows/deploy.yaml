@@ -3,7 +3,7 @@ name: Deploy Helm Chart
 on:
   push:
     paths:
-      - 'mychart/values.yaml'  # Следим за изменениями в файле values.yaml
+      - 'Module_7/Task6/mychart/values.yaml'  # Следим за изменениями в файле values.yaml
     branches:
       - main
 
@@ -31,4 +31,5 @@ jobs:
       - name: Deploy Application with Helm
         run: |
           # Указываем правильный путь к Helm-чарту
+          cd Module_7/Task6
           helm upgrade --install mychart-release ./mychart -f ./mychart/values.yaml --namespace default
