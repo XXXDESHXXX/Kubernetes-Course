@@ -8,7 +8,6 @@ on:
       - 'Module_7/Task6/mychart/Chart.yaml'
       - '.github/workflows/**'
 
-
 jobs:
   deploy:
     runs-on: self-hosted
