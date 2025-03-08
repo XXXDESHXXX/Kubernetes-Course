@@ -37,7 +37,7 @@ jobs:
 
       - name: Cleanup previous Helm releases
         run: |
-          helm uninstall mychart-release --namespace default || true
+          helm uninstall mychart-release --namespace default
 
       - name: Wait for Kubernetes readiness
         run: sleep 10
