@@ -40,4 +40,4 @@ jobs:
       - name: Deploy or Upgrade Helm Chart
         run: |
           cd Module_7/Task6
-          helm upgrade --install mychart-release ./mychart --values mychart/values.yaml
+          helm upgrade --install mychart-release ./mychart --values mychart/values.yaml --namespace default
