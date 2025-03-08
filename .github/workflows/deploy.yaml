@@ -38,11 +38,11 @@ jobs:
       - name: Wait for Kubernetes readiness
         run: sleep 10
 
+      - name: Debug Helm Releases
+        run: helm list --all-namespaces
+
       - name: Deploy or Upgrade Helm Chart
         run: |
           cd Module_7/Task6
           helm upgrade --install mychart-release ./mychart \
             --values mychart/values.yaml --namespace default --atomic --debug
-
-      - name: Debug Helm Releases
-        run: helm list --all-namespaces
