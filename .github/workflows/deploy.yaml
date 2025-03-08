@@ -3,7 +3,7 @@ name: Deploy Helm Chart
 on:
   push:
     paths:
-      - 'my-app/values.yaml'
+      - 'Module_7/Task6/mychart/values.yaml'
     branches:
       - main
 
@@ -27,4 +27,4 @@ jobs:
 
       - name: Deploy Application with Helm
         run: |
-          helm upgrade --install my-app ./my-app -f ./my-app/values.yaml --namespace default
+          helm upgrade --install mychart-release ./mychart -f ./mychart/values.yaml --namespace default
