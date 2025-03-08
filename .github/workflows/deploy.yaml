@@ -33,16 +33,12 @@ jobs:
       - name: Debug Helm Releases
         run: |
           helm list --all-namespaces
-
       - name: Debug Kubernetes Context
         run: |
           kubectl config current-context
           kubectl cluster-info
           kubectl get nodes
-
-
       - name: Deploy or Upgrade Helm Chart
         run: |
           cd Module_7/Task6
           helm upgrade --install mychart-release ./mychart --values mychart/values.yaml --namespace default --debug --dry-run
-
