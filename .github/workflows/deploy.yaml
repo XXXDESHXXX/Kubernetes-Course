@@ -35,10 +35,6 @@ jobs:
           kubectl cluster-info
           kubectl get nodes
 
-      - name: Cleanup previous Helm releases
-        run: |
-          helm uninstall mychart-release --namespace default
-
       - name: Wait for Kubernetes readiness
         run: sleep 10
 
