@@ -29,6 +29,7 @@ jobs:
       - name: Set Minikube context
         run: kubectl config use-context minikube
 
+
       - name: Debug Helm Releases
         run: |
           helm list --all-namespaces
