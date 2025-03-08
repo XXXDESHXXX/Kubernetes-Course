@@ -35,6 +35,7 @@ jobs:
           kubectl get nodes
           kubectl config current-context
 
+
       - name: Проверка наличия релизов
         run: helm list --all-namespaces
 
