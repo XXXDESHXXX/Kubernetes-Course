@@ -48,5 +48,6 @@ jobs:
           helm upgrade --install mychart-release ./mychart \
             --values mychart/values.yaml --namespace default --atomic --debug
 
+
       - name: Debug Helm Releases
         run: helm list --all-namespaces
