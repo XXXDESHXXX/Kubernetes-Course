@@ -32,6 +32,7 @@ jobs:
           Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
         shell: powershell
 
+
       - name: Deploy or Upgrade Helm Chart
         run: |
           cd Module_7/Task6
