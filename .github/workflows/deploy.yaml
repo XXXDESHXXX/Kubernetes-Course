@@ -37,7 +37,6 @@ jobs:
           kubectl cluster-info
           kubectl get nodes
 
-
       - name: Deploy or Upgrade Helm Chart
         run: |
           cd Module_7/Task6
