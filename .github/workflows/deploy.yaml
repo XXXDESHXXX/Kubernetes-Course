@@ -31,7 +31,6 @@ jobs:
             Write-Output "Helm is already installed."
           }
 
-
       - name: Deploy/Upgrade Release via Helm
         shell: powershell
         run: |
