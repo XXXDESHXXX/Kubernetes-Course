@@ -3,33 +3,36 @@ name: Deploy Helm Chart
 on:
   push:
     paths:
-      - 'Module_7/Task6/mychart/values.yaml'  # Следим за изменениями в файле values.yaml
-    branches:
-      - main
+      - 'Module_7/Task7/values.yaml'
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: latest
-
-      - name: Configure Kubernetes
+      - name: Setup kubeconfig
         run: |
-          # Создаем конфиг Kubernetes из секрета
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
-          export KUBECONFIG=$HOME/.kube/config
-          kubectl cluster-info  # Проверяем подключение к кластеру
+          mkdir %USERPROFILE%\.kube 2>nul || echo Folder exists
+          copy /Y config %USERPROFILE%\.kube\config
+        working-directory: .
 
-      - name: Deploy Application with Helm
+      - name: Install Helm (if not installed)
+        shell: powershell
         run: |
-          # Указываем правильный путь к Helm-чарту
-          cd Module_7/Task6
-          helm upgrade --install mychart-release ./mychart -f ./mychart/values.yaml --namespace default
+          if (!(Test-Path "$env:USERPROFILE\helm.exe")) {
+            Write-Output "Helm not found. Installing..."
+            Invoke-WebRequest -Uri "https://get.helm.sh/helm-v3.9.0-windows-amd64.zip" -OutFile "helm.zip"
+            Expand-Archive -Path "helm.zip" -DestinationPath "."
+            Move-Item -Path ".\windows-amd64\helm.exe" -Destination "$env:USERPROFILE\helm.exe"
+          }
+          else {
+            Write-Output "Helm is already installed."
+          }
+
+      - name: Deploy/Upgrade Release via Helm
+        shell: powershell
+        run: |
+          $helm = "$env:USERPROFILE\helm.exe"
+          & $helm upgrade --install my-nginx helm-chart/ --values helm-chart/values.yaml
