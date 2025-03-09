@@ -3,7 +3,8 @@ name: Deploy Helm Chart
 on:
   push:
     paths:
-      - 'Module_7/Task7/values.yaml'
+      - 'Module_7/Task7/my-nginx/values.yaml'
+
 
 jobs:
   deploy:
