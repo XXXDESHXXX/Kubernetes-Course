@@ -15,7 +15,7 @@ jobs:
 
       - name: Setup kubeconfig
         run: |
-          mkdir %USERPROFILE%\.kube 2>nul || echo Folder exists
+          mkdir %USERPROFILE%\.kube 2>nul
           copy /Y config %USERPROFILE%\.kube\config
         working-directory: .
 
