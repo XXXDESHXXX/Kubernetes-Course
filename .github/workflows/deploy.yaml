@@ -1,39 +1,24 @@
 name: Deploy Helm Chart
-
 on:
   push:
     paths:
       - 'Module_7/Task7/my-nginx/values.yaml'
 
-
 jobs:
   deploy:
     runs-on: self-hosted
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup kubeconfig
+      - name: Set up KUBECONFIG
         run: |
-          mkdir %USERPROFILE%\.kube 2>nul
-          copy /Y config %USERPROFILE%\.kube\config
-        working-directory: .
+          echo "Используемый kubeconfig: %USERPROFILE%\.kube\config"
+          set KUBECONFIG=%USERPROFILE%\.kube\config
 
-      - name: Install Helm (if not installed)
-        shell: powershell
+      - name: Deploy with Helm
         run: |
-          if (!(Test-Path "$env:USERPROFILE\helm.exe")) {
-            Write-Output "Helm not found. Installing..."
-            Invoke-WebRequest -Uri "https://get.helm.sh/helm-v3.9.0-windows-amd64.zip" -OutFile "helm.zip"
-            Expand-Archive -Path "helm.zip" -DestinationPath "."
-            Move-Item -Path ".\windows-amd64\helm.exe" -Destination "$env:USERPROFILE\helm.exe"
-          }
-          else {
-            Write-Output "Helm is already installed."
-          }
-
-      - name: Deploy/Upgrade Release via Helm
-        shell: powershell
-        run: |
-          $helm = "$env:USERPROFILE\helm.exe"
-          & $helm upgrade --install my-nginx helm-chart/ --values helm-chart/values.yaml
+          # Переходим в каталог чарта, если требуется
+          cd Module_7/Task7/my-nginx
+          helm upgrade --install my-nginx . --values values.yaml --namespace my-namespace --create-namespace
