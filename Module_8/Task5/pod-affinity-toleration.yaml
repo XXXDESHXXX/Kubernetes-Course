@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-affinity-toleration
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: env
+            operator: In
+            values:
+            - production
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "prod"
+    effect: "NoSchedule"
+  containers:
+  - name: nginx
+    image: nginx
