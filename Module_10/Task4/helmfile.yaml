@@ -1,0 +1,26 @@
+environments:
+  staging:
+    values:
+      - values/staging.yaml
+  production:
+    values:
+      - values/production.yaml
+
+releases:
+  - name: web-app
+    namespace: web
+    chart: ./charts/web-app
+    values:
+      - web-app-values.yaml
+
+  - name: database
+    namespace: database
+    chart: ./charts/database
+    values:
+      - database-values.yaml
+
+  - name: cache
+    namespace: cache
+    chart: ./charts/cache
+    values:
+      - cache-values.yaml

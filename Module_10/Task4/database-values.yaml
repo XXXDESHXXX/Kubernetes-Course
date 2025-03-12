@@ -1,0 +1,12 @@
+image:
+  repository: mysql
+  tag: "8.0"
+auth:
+  rootPassword: "test-root-password"
+  database: "exampledb"
+  username: "user"
+  password: "userpassword"
+persistence:
+  enabled: true
+  storageClass: "standard"
+  size: 5Gi

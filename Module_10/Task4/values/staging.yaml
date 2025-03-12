@@ -1,0 +1,6 @@
+global:
+  environment: staging
+  appName: "webapp-staging"
+  replicaCount: 1
+  debugMode: true
+  logLevel: "DEBUG"

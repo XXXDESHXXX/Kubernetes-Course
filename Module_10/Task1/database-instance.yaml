@@ -1,0 +1,7 @@
+apiVersion: example.com/v1alpha1
+kind: Database
+metadata:
+  name: my-database
+spec:
+  version: "1.0"
+  size: "10Gi"

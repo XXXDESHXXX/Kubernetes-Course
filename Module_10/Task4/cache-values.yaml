@@ -1,0 +1,7 @@
+image:
+  repository: redis
+  tag: "6-alpine"
+usePassword: false
+master:
+  persistence:
+    enabled: false

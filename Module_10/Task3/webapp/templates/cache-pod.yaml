@@ -1,0 +1,10 @@
+{{- if .Values.enableCache }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "webapp.fullname" . }}-cache
+spec:
+  containers:
+    - name: cache
+      image: redis:alpine
+{{- end }}

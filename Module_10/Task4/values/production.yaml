@@ -1,0 +1,6 @@
+global:
+  environment: production
+  appName: "webapp"
+  replicaCount: 3
+  debugMode: false
+  logLevel: "INFO"
